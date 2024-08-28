@@ -15,6 +15,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 
-app.get('/api/uesrs',userRoutes);
+app.use('/api/users',userRoutes);
 
 app.listen(port, () => console.log(`server running on port ${port}`));
