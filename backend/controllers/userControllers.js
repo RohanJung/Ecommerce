@@ -1,6 +1,7 @@
 import User from "../models/userModels.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
 import bcrpyt from "bcryptjs";
+import createToken from "../utils/createToken.js";
 
 
 const createUser = asyncHandler(async (req, res) => {
@@ -24,6 +25,8 @@ const createUser = asyncHandler(async (req, res) => {
 
   try {
     await newUser.save();
+    createToken(res,newUser._id);
+
 
     res
       .status(201)
