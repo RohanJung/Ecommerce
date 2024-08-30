@@ -74,14 +74,17 @@ else{
 }
 });
 
-const logoutUser = asyncHandler(async(req,res) => {
-  res.cookie('jwt','',{
-    httpOnly:true,
-    expires:new Date(0),
+const logoutUser = asyncHandler(async (req, res) => {
+  if (!res.cookie.jwt) {
+    res.status(401).json({ "message": "User doesnt exist" });
+  }
+  res.cookie('jwt', '', {
+    httpOnly: true,
+    expires: new Date(0),
   });
   res.status(200).json({
-    "message":"User logout Sucesfully"
+    "message": "User logout Sucesfully"
   });
 });
-
+ 
 export { createUser,loginUser,logoutUser};
