@@ -26,7 +26,7 @@ const createUser = asyncHandler(async (req, res) => {
   try {
     await newUser.save();
     createToken(res,newUser._id);
-
+    console.log('new user created');
 
     res
       .status(201)
