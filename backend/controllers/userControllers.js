@@ -95,7 +95,6 @@ const getAllUsers = asyncHandler(async(req,res) => {
   res.json(users);
 })
 const getProfileDetail = asyncHandler(async(req,res)=>{
-  console.log(req.user._id);
   try {
     const userId = await User.findById(req.user._id);
     
@@ -116,6 +115,29 @@ const getProfileDetail = asyncHandler(async(req,res)=>{
   
 })
 const updateProfileDetail = asyncHandler(async(req,res)=>{
-  console.log(req);
+    const user = await User.findById(req.user._id);
+
+    if(user){
+      user.username = req.body.username;
+      user.email = req.body.email;
+      
+      if(req.body.password){
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(req.body.password,salt);
+        user.password = hashedPassword;
+      }
+      const UpdatedUser = await user.save();
+
+      res.json({
+        _id:Updateduser._id,
+        username:Upateduser.username,
+        email:UpdatedUser.email,
+        isAdmin:UpdatedUser.isAdmin,
+      })
+    }
+    else{
+      res.status(404);
+      throw new Error("User not found");
+    }
 }) 
 export { createUser,loginUser,logoutUser,getAllUsers,getProfileDetail,updateProfileDetail};
