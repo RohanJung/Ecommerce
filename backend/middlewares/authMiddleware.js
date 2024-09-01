@@ -1,5 +1,6 @@
+import User from "../models/userModels.js";
 import asyncHandler from "./asyncHandler.js";
-import jwt from "jsonwebtoken";
+import jwt, { decode } from "jsonwebtoken";
 
 
 const authenticate = asyncHandler(async(req,res,next) => {
@@ -10,7 +11,7 @@ const authenticate = asyncHandler(async(req,res,next) => {
     if(token){
         try{
             const decoded = jwt.verify(token,process.env.JWT_SECRET);
-            req.user = await User.findby(decoded.userId).select("-password");
+            req.user = await User.findById(decoded.userId).select("-password");
             next();
 
         }catch{

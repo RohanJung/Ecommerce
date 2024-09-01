@@ -3,7 +3,8 @@ import { createUser,loginUser,logoutUser,getAllUsers } from "../controllers/user
 import { authenticate,authorizeAdmin } from "../middlewares/authMiddleware.js";
 const  router = express.Router();
 
-router.post('/',createUser).get(authenticate,authorizeAdmin,getAllUsers);
+router.post('/',createUser);
+router.get('/',authenticate,authorizeAdmin,getAllUsers);
 router.post('/auth',loginUser);
-router.post('/logout',logoutUser);
+router.get('/logout',logoutUser);
 export default router;
