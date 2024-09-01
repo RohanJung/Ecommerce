@@ -75,8 +75,8 @@ else{
 });
 
 const logoutUser = asyncHandler(async (req, res) => {
-  if (!res.cookie.jwt) {
-    res.status(401).json({ "message": "User doesnt exist" });
+  if (!req.cookies.jwt) {
+    return res.status(401).json({ "message": "User doesnt exist" });
   }
   res.cookie('jwt', '', {
     httpOnly: true,
@@ -85,6 +85,7 @@ const logoutUser = asyncHandler(async (req, res) => {
   res.status(200).json({
     "message": "User logout Sucesfully"
   });
+
 });
 
 const getAllUsers = asyncHandler(async(req,res) => {
@@ -93,5 +94,16 @@ const getAllUsers = asyncHandler(async(req,res) => {
 
   res.json(users);
 })
- 
-export { createUser,loginUser,logoutUser,getAllUsers};
+const getProfileDetail = asyncHandler(async(req,res)=>{
+  console.log(req.users._id);
+   try{
+      const userId = await User.findById(req.user)
+   }
+   catch{
+
+   }
+})
+const updateProfileDetail = asyncHandler(async(req,res)=>{
+  console.log(req);
+}) 
+export { createUser,loginUser,logoutUser,getAllUsers,getProfileDetail,updateProfileDetail};
