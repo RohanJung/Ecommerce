@@ -95,13 +95,25 @@ const getAllUsers = asyncHandler(async(req,res) => {
   res.json(users);
 })
 const getProfileDetail = asyncHandler(async(req,res)=>{
-  console.log(req.users._id);
-   try{
-      const userId = await User.findById(req.user)
-   }
-   catch{
-
-   }
+  console.log(req.user._id);
+  try {
+    const userId = await User.findById(req.user._id);
+    
+    if (userId) {
+      res.status(200).json({
+        "_id": userId._id,
+        "username": userId.username,
+        "email": userId.email,
+        "password":userId.password,
+      });
+    } else {
+      res.status(400).json({ "message": "The user info is not available" });
+    }
+  } catch (error) {
+    console.error("Error fetching user:", error); 
+    res.status(500).json({ "message": "Internal server error" }); 
+  }
+  
 })
 const updateProfileDetail = asyncHandler(async(req,res)=>{
   console.log(req);
