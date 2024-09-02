@@ -152,7 +152,7 @@ const deleteUserbyId = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 });
-const findbyId = asyncHandler(async(req,res)=>{
+const findUserById = asyncHandler(async(req,res)=>{
   const user = await User.findById(req.params.id);
   if(user){
     res.status(200).json({
@@ -200,6 +200,6 @@ export {
   getProfileDetail,
   updateProfileDetail,
   deleteUserbyId,
-  findbyId,
+  findUserById,
   updateUserbyId, 
 };
