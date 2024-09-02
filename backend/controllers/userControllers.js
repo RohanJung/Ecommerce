@@ -126,13 +126,13 @@ const updateProfileDetail = asyncHandler(async(req,res)=>{
         const hashedPassword = await bcrypt.hash(req.body.password,salt);
         user.password = hashedPassword;
       }
-      const UpdatedUser = await user.save();
+      const Updateduser = await user.save();
 
       res.json({
         _id:Updateduser._id,
-        username:Upateduser.username,
-        email:UpdatedUser.email,
-        isAdmin:UpdatedUser.isAdmin,
+        username:Updateduser.username,
+        email:Updateduser.email,
+        isAdmin:Updateduser.isAdmin,
       })
     }
     else{
