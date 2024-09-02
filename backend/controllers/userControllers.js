@@ -164,6 +164,33 @@ const findbyId = asyncHandler(async(req,res)=>{
   else{
     throw new Error("The user doesn't exist");
   }
+});
+
+const updateUserbyId = asyncHandler(async(req,res)=>{
+  const user = await User.findById(req.params.id);
+  console.log(user);
+  if(user){
+    user.username = req.body.username || user.username
+    user.email = req.body.email || user.email
+    user.isAdmin =Boolean(req.body.isAdmin);
+    if(req.body.password){
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(req.body.password,salt);
+      user.password = hashedPassword;
+    }
+    const updateduser =await user.save();
+    console.log(updateduser);
+    res.json({
+      _id:updateduser._id,
+      username:updateduser.username,
+      email:updateduser.email,
+      isAdmin:updateduser.isAdmin,
+    });
+  }else{
+    res.status(401).json({
+      message:"User not found"
+    })
+  }
 })
 export {
   createUser,
@@ -174,4 +201,5 @@ export {
   updateProfileDetail,
   deleteUserbyId,
   findbyId,
+  updateUserbyId, 
 };
