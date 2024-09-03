@@ -11,8 +11,12 @@ import { FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "./navigation.css";
 import { useNavigate } from "react-router-dom";
-
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../redux/features/auth/authSlice";
+import { useLoginMutation } from "../../redux/api/uesrApiSlice";
 const Navigation = () => {
+  const { userInfo } = useSelector((state) => state.auth);
+
   const [dropdown, setDropdown] = useState(false);
   const [sidebar, setSidebar] = useState(false);
 
@@ -22,6 +26,20 @@ const Navigation = () => {
 
   const toggleSidebar = () => {
     setSidebar(!sidebar);
+  };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [logoutApiCall] = useLoginMutation();
+
+  const logoutHandler = async () => {
+    try {
+      await logoutApiCall().unwrap();
+      dispath(logout());
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div
@@ -52,7 +70,7 @@ const Navigation = () => {
           className="flex items-center transition-transform transform hover:translate-x-2"
         >
           <AiOutlineShoppingCart className="mr-2 mt-[3rem]" size={26} />
-          <span className="hidden nav-item-name mt-[3rem]">SHOP</span>{" "}
+          <span className="hidden nav-item-name mt-[3rem]">CART</span>{" "}
         </Link>
 
         <Link
@@ -60,9 +78,46 @@ const Navigation = () => {
           className="flex items-center transition-transform transform hover:translate-x-2"
         >
           <FaHeart className="mr-2 mt-[3rem]" size={26} />
-          <span className="hidden nav-item-name mt-[3rem]">FAVOURITE</span>{" "}
+          <span className="hidden nav-item-name mt-[3rem]">
+            Favourites
+          </span>{" "}
         </Link>
       </div>
+      <div className="relative">
+        <button
+          onClick={toggleDropdown}
+          className="flex items-center text-gray-800 focus:outline-none"
+        >
+          {userInfo ? (
+            <span className="text-white">{userInfo.username}</span>
+          ) : (
+            <></>
+          )}
+        </button>
+      </div>
+      <ul>
+        <li>
+          <Link
+            to="/login"
+            className="flex items-center transition-transform transform hover:translate-x-2"
+          >
+            <AiOutlineLogin className="mr-2 mt-[3rem]" size={26} />
+            <span className="hidden nav-item-name mt-[3rem]">Login</span>{" "}
+          </Link>
+        </li>
+
+        <li>
+          <Link
+            to="/Register"
+            className="flex items-center transition-transform transform hover:translate-x-2"
+          >
+            <AiOutlineUserAdd className="mr-2 mt-[3rem]" size={26} />
+            <span className="hidden nav-item-name mt-[3rem]">
+              Register
+            </span>{" "}
+          </Link>
+        </li>
+      </ul>
     </div>
   );
 };
