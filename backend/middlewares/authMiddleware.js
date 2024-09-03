@@ -5,7 +5,6 @@ import jwt, { decode } from "jsonwebtoken";
 
 const authenticate = asyncHandler(async(req,res,next) => {
     let token;
-    
     token = req.cookies.jwt;
 
     if(token){
