@@ -29,7 +29,30 @@ const Login = () => {
     }
   }, [navigate, redirect, userInfo]);
 
-  return <div></div>;
+  return (
+    <div>
+      <section className="pl-[10rerm] flex flex-wrap">
+        <div className="mr-[4rem] mt-[5rem]">
+          <h1 className="text-2xl font-semibold mb-4">Sign In</h1>
+          <form className="container w-[40rem]">
+            <div className="my-[2rem]">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-white"
+              >
+                Email Address
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="mt-1 p-2 border rounded w-full"
+              />
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+  );
 };
 
 export default Login;
