@@ -6,6 +6,7 @@ import { setCredientials } from "../../redux/features/auth/authSlice";
 import { useLoginMutation } from "../../redux/api/uesrApiSlice";
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader";
+import { set } from "mongoose";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -30,12 +31,24 @@ const Login = () => {
     }
   }, [navigate, redirect, userInfo]);
 
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await login({ email, password }).unwrap();
+      console.log(res);
+      dispatch(setCredientials(res));
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   return (
     <div>
       <section className="pl-[10rem] flex flex-wrap">
         <div className="mr-[4rem] mt-[5rem]">
           <h1 className="text-2xl font-semibold mb-4">Sign In</h1>
-          <form className="container w-[40rem]">
+          <form onSubmit={submitHandler} className="container w-[40rem]">
             <div className="my-[2rem]">
               <label
                 htmlFor="email"
