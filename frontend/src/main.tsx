@@ -4,7 +4,7 @@ import "./index.css";
 import { store } from "./redux/store.js";
 import { Provider } from "react-redux";
 import Login from "./pages/Auth/Login.jsx";
-
+import Profile from "./pages/Admin/Profile.jsx";
 import Register from "./pages/Auth/Register.jsx";
 import {
   createBrowserRouter,

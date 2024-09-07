@@ -3,6 +3,7 @@ import { Button } from "../../components/ui/button";
 import { useState } from "react";
 import { useRegisterMutation } from "../../redux/api/userApiSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { Input } from "../../components/ui/input";
 import { setCredentials } from "../../redux/features/Auth/userAuthSlice";
 
 const Register = () => {
@@ -24,46 +25,27 @@ const Register = () => {
     }
   };
   return (
-    <div>
-      <form
-        action=""
-        method="post"
-        className="flex flex-col px-20"
-        onSubmit={handleSubmit}
-      >
-        <div>
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            className="border border-solid border-red-400"
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            className="border border-solid border-red-400"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            className="border border-solid border-red-400"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div>
-          <Button>Click me</Button>
-        </div>
+    <div className="py-40 px-44 text-black flex justify-center align-center flex-col ">
+      <form className="flex flex-col w-40" onSubmit={handleSubmit}>
+        <label htmlFor="Username">Username</label>
+        <Input
+          type="text"
+          onChange={(e) => setUsername(e.target.value)}
+          label="Username"
+        />
+        <label htmlFor="Email">Email</label>
+        <Input
+          type="text"
+          onChange={(e) => setEmail(e.target.value)}
+          label="Email"
+        />
+        <label htmlFor="Passowrd">Password</label>
+        <Input
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          label="Password"
+        />
+        <Button>Register</Button>
       </form>
     </div>
   );
