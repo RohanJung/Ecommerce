@@ -15,11 +15,11 @@ const createUser = asyncHandler(async (req, res) => {
   const userExists = await User.findOne({ email });
 
   if (userExists) {
-    res.status(201).send("User already exits");
+    res.status(400).send("User already exits");
   }
   console.log(username, email, password);
 
-  const salt = await bcrpyt.genSalt(10);
+  const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrpyt.hash(password, salt);
 
   const newUser = new User({ username, email, password: hashedPassword });
@@ -137,7 +137,7 @@ const updateProfileDetail = asyncHandler(async (req, res) => {
   }
 });
 const deleteUserbyId = asyncHandler(async (req, res) => {
-  const user = await  User.findById(req.params.id);
+  const user = await User.findById(req.params.id);
   console.log(user);
   if (user) {
     if (user.isAdmin) {
@@ -152,46 +152,45 @@ const deleteUserbyId = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 });
-const findUserById = asyncHandler(async(req,res)=>{
+const findUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
-  if(user){
+  if (user) {
     res.status(200).json({
-      _id:user._id,
-      username:user.username,
-      email:user.email,
-    })
-  }
-  else{
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+    });
+  } else {
     throw new Error("The user doesn't exist");
   }
 });
 
-const updateUserbyId = asyncHandler(async(req,res)=>{
+const updateUserbyId = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
   console.log(user);
-  if(user){
-    user.username = req.body.username || user.username
-    user.email = req.body.email || user.email
-    user.isAdmin =Boolean(req.body.isAdmin);
-    if(req.body.password){
+  if (user) {
+    user.username = req.body.username || user.username;
+    user.email = req.body.email || user.email;
+    user.isAdmin = Boolean(req.body.isAdmin);
+    if (req.body.password) {
       const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(req.body.password,salt);
+      const hashedPassword = await bcrypt.hash(req.body.password, salt);
       user.password = hashedPassword;
     }
-    const updateduser =await user.save();
+    const updateduser = await user.save();
     console.log(updateduser);
     res.json({
-      _id:updateduser._id,
-      username:updateduser.username,
-      email:updateduser.email,
-      isAdmin:updateduser.isAdmin,
+      _id: updateduser._id,
+      username: updateduser.username,
+      email: updateduser.email,
+      isAdmin: updateduser.isAdmin,
     });
-  }else{
+  } else {
     res.status(401).json({
-      message:"User not found"
-    })
+      message: "User not found",
+    });
   }
-})
+});
 export {
   createUser,
   loginUser,
@@ -201,5 +200,5 @@ export {
   updateProfileDetail,
   deleteUserbyId,
   findUserById,
-  updateUserbyId, 
+  updateUserbyId,
 };
