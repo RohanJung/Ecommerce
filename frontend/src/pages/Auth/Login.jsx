@@ -1,6 +1,7 @@
 import { Button } from "../../components/ui/button";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { setCredentials } from "../../redux/features/Auth/userAuthSlice";
 import { useLoginMutation } from "../../redux/api/userApiSlice";
 import { Input } from "../../components/ui/input";
@@ -9,8 +10,19 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [login, { isLoading, error }] = useLoginMutation();
-
+  const Navigate = useNavigate();
   const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.auth);
+
+  const { search } = useLocation();
+  const sp = new URLSearchParams(search);
+  const redirect = sp.get("redirect") || "/";
+
+  useEffect(() => {
+    if (userInfo) {
+      Navigate(redirect);
+    }
+  }, [Navigate, redirect, userInfo]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
