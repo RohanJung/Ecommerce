@@ -74,9 +74,6 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const logoutUser = asyncHandler(async (req, res) => {
-  if (!req.cookies.jwt) {
-    return res.status(401).json({ message: "User doesnt exist" });
-  }
   res.cookie("jwt", "", {
     httpOnly: true,
     expires: new Date(0),
