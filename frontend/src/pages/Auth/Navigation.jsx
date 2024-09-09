@@ -72,10 +72,20 @@ const Navigation = () => {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   {" "}
-                  <Link to="/admin/profile">Profile</Link>
+                  <Link to="/Admin/Profile">Profile</Link>
                 </DropdownMenuItem>
+                {userInfo?.isAdmin && (
+                  <DropdownMenuItem>
+                    {" "}
+                    <Link to="/Admin/Dashboard">Dashboard</Link>
+                  </DropdownMenuItem>
+                )}
                 <DropdownMenuItem onClick={(e) => handleLogout(e)}>
                   Logout
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  {" "}
+                  <Link to="/admin/ViewUsers">All Users</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

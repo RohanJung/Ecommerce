@@ -58,6 +58,7 @@ const loginUser = asyncHandler(async (req, res) => {
         username: existingUser.username,
         email: existingUser.email,
         password: existingUser.password,
+        isAdmin: existingUser.isAdmin,
       });
     } else {
       res.status(401).json({
