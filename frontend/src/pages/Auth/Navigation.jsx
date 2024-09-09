@@ -72,7 +72,7 @@ const Navigation = () => {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   {" "}
-                  <Link to="/Admin/Profile">Profile</Link>
+                  <Link to="/User/Profile">Profile</Link>
                 </DropdownMenuItem>
                 {userInfo?.isAdmin && (
                   <DropdownMenuItem>
@@ -85,7 +85,7 @@ const Navigation = () => {
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   {" "}
-                  <Link to="/admin/ViewUsers">All Users</Link>
+                  <Link to="/admin/UserList">All Users</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

@@ -4,8 +4,11 @@ import "./index.css";
 import { store } from "./redux/store.js";
 import { Provider } from "react-redux";
 import Login from "./pages/Auth/Login.jsx";
-import Profile from "./pages/Admin/Profile.jsx";
+import Profile from "./pages/User/Profile.jsx";
 import Register from "./pages/Auth/Register.jsx";
+import Admin from "./pages/Admin/Admin.jsx";
+import UserList from "./pages/Admin/UserList.jsx";
+import User from "./pages/User/User.jsx";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -18,6 +21,14 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
+
+      <Route path="/Admin" element={<Admin />}>
+        <Route path="UserList" element={<UserList />} />
+      </Route>
+
+      <Route path="/User" element={<User />}>
+        <Route path="profile" element={<Profile />} />
+      </Route>
     </Route>
   )
 );
