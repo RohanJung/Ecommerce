@@ -8,6 +8,7 @@ import {
   updateProfileDetail,
   deleteUserbyId,
   findUserById,
+  updateUserbyId,
 } from "../controllers/userControllers.js";
 import { authenticate, authorizeAdmin } from "../middlewares/authMiddleware.js";
 const router = express.Router();
@@ -22,6 +23,7 @@ router
 router
   .route("/:id")
   .delete(authenticate, authorizeAdmin, deleteUserbyId)
-  .get(authenticate, authorizeAdmin, findUserById);
+  .get(authenticate, authorizeAdmin, findUserById)
+  .put(authenticate, authorizeAdmin, updateUserbyId);
 router.post("/logout", logoutUser);
 export default router;
