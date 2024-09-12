@@ -16,15 +16,12 @@ import {
 } from "../../redux/api/userApiSlice";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../redux/features/Auth/userAuthSlice";
-
 const UserList = () => {
   const dispatch = useDispatch();
   const [updateUser] = useUpdateuserMutation();
   const [deleteUser] = useDeleteUserMutation();
   const { data: users, error, isLoading } = useGetUsersQuery();
-
   const [loadingState, setLoadingState] = useState({});
-
   const handleEdit = async (userId) => {
     setLoadingState((prevState) => ({ ...prevState, [userId]: "updating" }));
     try {
@@ -47,10 +44,8 @@ const UserList = () => {
       setLoadingState((prevState) => ({ ...prevState, [userId]: "idle" }));
     }
   };
-
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading users</p>;
-
   return (
     <div className="py-40 px-44 text-black flex justify-center align-center flex-col">
       <Table>
@@ -93,5 +88,4 @@ const UserList = () => {
     </div>
   );
 };
-
 export default UserList;
