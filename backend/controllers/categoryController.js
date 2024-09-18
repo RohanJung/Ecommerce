@@ -26,11 +26,15 @@ const createCategory = asyncHandler(async (req, res) => {
     res.status(500).json({ message: "An error occurred. Please try again." });
   }
 });
+const getAllCategories = asyncHandler(async (req, res) => {
+  const categories = await Category.find({});
+  res.json(categories);
+});
 
 const updateCategory = asyncHandler(async (req, res) => {
-  const name = req.body.name;
-  const category = await Category.findOne(req.body.name);
-  console.log(category);
+  //getting query param from the request
+
+  const category = await Category.findById(req.params.id);
   if (category) {
     category.name = name;
     const updatedCategory = await category.save();
@@ -51,4 +55,4 @@ const deleteCategory = asyncHandler(async (req, res) => {
   }
 });
 
-export { createCategory, updateCategory, deleteCategory };
+export { createCategory, updateCategory, deleteCategory, getAllCategories };

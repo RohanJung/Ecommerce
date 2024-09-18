@@ -33,77 +33,18 @@ const Navigation = () => {
   };
 
   return (
-    <div>
-      <div className="w-40 bg-black h-screen flex flex-col justify-between z-10 fixed">
-        <div className="flex flex-col pt-10 pl-4">
-          <div>
-            <Link className="text-white" to="/">
-              Home
-            </Link>
-          </div>
-          <div>
-            <Link className="text-white" to="/shop">
-              Shop
-            </Link>
-          </div>
-          <div>
-            <Link className="text-white" to="/cart">
-              Cart
-            </Link>
-          </div>
-          <div>
-            <Link className="text-white" to="/favourites">
-              Favourites
-            </Link>
-          </div>
-        </div>
-        {userInfo ? (
-          <div className="pl-8 pb-10">
-            <Avatar>
-              {" "}
-              <AvatarImage src="https://github.com/shadcn.png" />
-            </Avatar>
-            <DropdownMenu>
-              <DropdownMenuTrigger className="text-white">
-                Profile
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  {" "}
-                  <Link to="/User/Profile">Profile</Link>
-                </DropdownMenuItem>
-                {userInfo?.isAdmin && (
-                  <DropdownMenuItem>
-                    {" "}
-                    <Link to="/Admin/Dashboard">Dashboard</Link>
-                  </DropdownMenuItem>
-                )}
-                <DropdownMenuItem onClick={(e) => handleLogout(e)}>
-                  Logout
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  {" "}
-                  <Link to="/admin/UserList">All Users</Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        ) : (
-          <div className="flex flex-col pb-10 pl-4">
-            <div>
-              <Link to="/login" className="text-white">
-                Login
-              </Link>
-            </div>
-            <div>
-              <Link to="/register" className="text-white">
-                Register
-              </Link>
-            </div>
-          </div>
-        )}
+    <div className=" ">
+      <div>
+        <Link to="/">Home</Link>
+      </div>
+      <div>
+        <Link to="/cart">Cart</Link>
+      </div>
+      <div>
+        <Link to="/product">Product</Link>
+      </div>
+      <div>
+        <Link to="/categories">Categories</Link>
       </div>
     </div>
   );
