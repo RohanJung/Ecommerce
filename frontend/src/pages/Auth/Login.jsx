@@ -36,24 +36,38 @@ const Login = () => {
     }
   };
   return (
-    <div className="py-40 px-44 text-black flex justify-center align-center flex-col ">
-      <form className="flex flex-col w-40" onSubmit={handleSubmit}>
-        <label htmlFor="Email">Email</label>
-        <Input
-          type="text"
-          onChange={(e) => setEmail(e.target.value)}
-          label="Email"
-        />
-        <label htmlFor="Passowrd">Password</label>
-        <Input
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          label="Password"
-        />
-        <Button>Login</Button>
-      </form>
-      <div className="flex">
-        <a href="/register">Register </a>
+    <div className="flex justify-center items-center h-screen">
+      <div className="w-full max-w-md p-6 bg-white rounded shadow-md">
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="email" className="block mb-1">
+              Email
+            </label>
+            <Input
+              id="email"
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full"
+            />
+          </div>
+          <div>
+            <label htmlFor="password" className="block mb-1">
+              Password
+            </label>
+            <Input
+              id="password"
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full"
+            />
+          </div>
+          <Button className="w-full">Login</Button>
+        </form>
+        <div className="mt-4 text-center">
+          <Link to="/register" className="text-blue-600 hover:underline">
+            Register
+          </Link>
+        </div>
       </div>
     </div>
   );

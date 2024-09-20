@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "../../components/ui/button";
-import { useState } from "react";
-import { useRegisterMutation } from "../../redux/api/userApiSlice";
-import { useDispatch, useSelector } from "react-redux";
 import { Input } from "../../components/ui/input";
+import { useRegisterMutation } from "../../redux/api/userApiSlice";
+import { useDispatch } from "react-redux";
 import { setCredentials } from "../../redux/features/Auth/userAuthSlice";
 
 const Register = () => {
@@ -24,29 +24,60 @@ const Register = () => {
       console.error(error);
     }
   };
+
   return (
-    <div className="py-40 px-44 text-black flex justify-center align-center flex-col ">
-      <form className="flex flex-col w-40" onSubmit={handleSubmit}>
-        <label htmlFor="Username">Username</label>
-        <Input
-          type="text"
-          onChange={(e) => setUsername(e.target.value)}
-          label="Username"
-        />
-        <label htmlFor="Email">Email</label>
-        <Input
-          type="text"
-          onChange={(e) => setEmail(e.target.value)}
-          label="Email"
-        />
-        <label htmlFor="Passowrd">Password</label>
-        <Input
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          label="Password"
-        />
-        <Button>Register</Button>
-      </form>
+    <div className="flex justify-center items-center h-screen">
+      <div className="w-full max-w-md p-6 bg-white rounded shadow-md">
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="username" className="block mb-1">
+              Username
+            </label>
+            <Input
+              id="username"
+              type="text"
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full"
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className="block mb-1">
+              Email
+            </label>
+            <Input
+              id="email"
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full"
+            />
+          </div>
+          <div>
+            <label htmlFor="password" className="block mb-1">
+              Password
+            </label>
+            <Input
+              id="password"
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full"
+            />
+          </div>
+          <Button className="w-full" disabled={isLoading}>
+            {isLoading ? "Registering..." : "Register"}
+          </Button>
+        </form>
+        {error && (
+          <p className="mt-4 text-red-600">
+            {error.data?.message || "An error occurred"}
+          </p>
+        )}
+        <div className="mt-4 text-center">
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-600 hover:underline">
+            Login
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };
