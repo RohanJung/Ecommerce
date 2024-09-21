@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Avatar, AvatarImage } from "../../components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useLogoutMutation } from "../../redux/api/userApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/features/Auth/userAuthSlice";
@@ -15,14 +15,21 @@ import { FaHeart } from "react-icons/fa";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuPortal,
   DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "../../components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 
 const Navigation = () => {
   const { userInfo } = useSelector((state) => state.auth);
+  console.log(userInfo);
   const [Logout, { isLoading, error }] = useLogoutMutation();
   const dispatch = useDispatch();
   console.log(userInfo);
@@ -77,26 +84,46 @@ const Navigation = () => {
           </Link>
         </div>
       </div>
-      <div className=" flex flex-col gap-4">
-        <div>
-          <Link
-            to="/login"
-            className="text-white flex items-center flex-row gap-4"
-          >
-            <AiOutlineLogin />
-            <span className="hidden group-hover:inline">Login</span>
-          </Link>
+
+      {userInfo ? (
+        <DropdownMenu>
+          <DropdownMenuTrigger className="text-white">
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Profile</DropdownMenuItem>
+            <DropdownMenuItem>Billing</DropdownMenuItem>
+            <DropdownMenuItem>Settings</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ) : (
+        <div className=" flex flex-col gap-4">
+          <div>
+            <Link
+              to="/login"
+              className="text-white flex items-center flex-row gap-4"
+            >
+              <AiOutlineLogin />
+              <span className="hidden group-hover:inline">Login</span>
+            </Link>
+          </div>
+          <div>
+            <Link
+              to="/register"
+              className="text-white flex items-center flex-row gap-2"
+            >
+              <AiOutlineUserAdd />
+              <span className="hidden group-hover:inline">Register</span>
+            </Link>
+          </div>
         </div>
-        <div>
-          <Link
-            to="/register"
-            className="text-white flex items-center flex-row gap-2"
-          >
-            <AiOutlineUserAdd />
-            <span className="hidden group-hover:inline">Register</span>
-          </Link>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
