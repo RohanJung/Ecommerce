@@ -2,6 +2,7 @@ import Category from "../models/categoryModel.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
 
 const createCategory = asyncHandler(async (req, res) => {
+  console.log("hello");
   const { name } = req.body;
 
   if (!name) {
@@ -32,11 +33,10 @@ const getAllCategories = asyncHandler(async (req, res) => {
 });
 
 const updateCategory = asyncHandler(async (req, res) => {
-  //getting query param from the request
-
-  const category = await Category.findById(req.params.id);
+  const category = await Category.findById(req.params.id.trim());
+  console.log(category);
   if (category) {
-    category.name = name;
+    category.name = req.body.name || category.name;
     const updatedCategory = await category.save();
     res.json(updatedCategory);
   } else {
