@@ -45,10 +45,9 @@ const updateCategory = asyncHandler(async (req, res) => {
 });
 
 const deleteCategory = asyncHandler(async (req, res) => {
-  const name = req.body.name;
-  const category = await Category.findOne(name);
+  const category = await Category.findById(req.params.id);
   if (category) {
-    await category.remove();
+    await category.deleteOne(category);
     res.json({ message: "Category removed" });
   } else {
     res.status(404).json({ message: "Category not found" });

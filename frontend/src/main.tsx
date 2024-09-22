@@ -9,6 +9,7 @@ import Register from "./pages/Auth/Register.jsx";
 import Admin from "./pages/Admin/Admin.jsx";
 import UserList from "./pages/Admin/UserList.jsx";
 import User from "./pages/User/User.jsx";
+import Category from "./pages/Admin/CategoryList.jsx";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
 
       <Route path="/Admin" element={<Admin />}>
         <Route path="UserList" element={<UserList />} />
+        <Route path="Category" element={<Category />} />
       </Route>
 
       <Route path="/User" element={<User />}>

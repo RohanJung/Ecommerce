@@ -97,6 +97,9 @@ const Navigation = () => {
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Profile</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link to="/Admin/Category">Category</Link>
+            </DropdownMenuItem>
             <DropdownMenuItem>Billing</DropdownMenuItem>
             <DropdownMenuItem>Settings</DropdownMenuItem>
             <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
