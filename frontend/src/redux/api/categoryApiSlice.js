@@ -25,7 +25,7 @@ export const categoryApiSlice = apiSlice.injectEndpoints({
     }),
     deleteCategory: builder.mutation({
       query: (data) => ({
-        url: `${CATEGORIES_URL}/${data.categoryId}`,
+        url: `${CATEGORIES_URL}/${data.id}`,
         method: "DELETE",
       }),
     }),
