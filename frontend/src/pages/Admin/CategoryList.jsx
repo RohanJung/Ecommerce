@@ -5,6 +5,7 @@ import {
   useUpdateCategoryMutation,
   useDeleteCategoryMutation,
 } from "../../redux/api/categoryApiSlice";
+import { set } from "mongoose";
 
 const CategoryList = () => {
   const { data: categories, error, isLoading } = useGetCategoriesQuery();
@@ -13,6 +14,11 @@ const CategoryList = () => {
   const [createCategory] = useCreateCategoryMutation();
   const [updateCategory] = useUpdateCategoryMutation();
   const [deleteCategory] = useDeleteCategoryMutation();
+  const [editForm, setEditForm] = useState(false);
+  const [editData, setEditData] = useState({
+    id: "",
+    name: "",
+  });
 
   const handleCreate = async (e) => {
     e.preventDefault();
@@ -29,7 +35,11 @@ const CategoryList = () => {
   const handleEdit = async (e) => {
     e.preventDefault();
     try {
-      const result = await updateCategory(/* Your update logic */);
+      const { id, name } = editData; // Destructure id and name from editData
+      const result = await updateCategory({
+        categoryId: id,
+        categoryData: { name },
+      }).unwrap(); // Pass both categoryId and categoryData
       console.log(result);
     } catch (error) {
       console.log(error);
@@ -78,7 +88,10 @@ const CategoryList = () => {
                 <td className="border border-gray-400">
                   <button
                     className="bg-blue-500 text-white px-2 py-1 rounded"
-                    onClick={handleEdit}
+                    onClick={() => {
+                      setEditForm(true); // Show the edit form
+                      setEditData({ id: category._id, name: category.name }); // Set the current category's id and name
+                    }}
                   >
                     Edit
                   </button>
@@ -106,6 +119,30 @@ const CategoryList = () => {
               className="w-full border border-gray-400 p-2 rounded"
               value={name}
               onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-2 py-1 rounded mt-2"
+          >
+            Submit
+          </button>
+        </form>
+      )}
+      {editForm && (
+        <form className="mt-4" onSubmit={handleEdit}>
+          <div>
+            <label htmlFor="name" className="block mb-1">
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              className="w-full border border-gray-400 p-2 rounded"
+              value={editData.name}
+              onChange={
+                (e) => setEditData({ ...editData, name: e.target.value }) // Keep the id, update the name
+              }
             />
           </div>
           <button
