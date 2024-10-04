@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+const { ObjectId } = mongoose.Schema;
 const reviewSchema = mongoose.Schema(
   {
     name: { type: String, required: true },

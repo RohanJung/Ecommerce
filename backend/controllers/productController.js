@@ -1,7 +1,7 @@
-import Product from "../models/productModel";
-import asyncHandler from "../middlewares/asyncHandler";
+import Product from "../models/productModel.js";
+import asyncHandler from "../middlewares/asyncHandler.js";
 
-const createProdct = asyncHandler(async (req, res) => {
+const createProduct = asyncHandler(async (req, res) => {
   const {
     name,
     image,
