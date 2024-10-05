@@ -35,11 +35,11 @@ const CategoryList = () => {
   const handleEdit = async (e) => {
     e.preventDefault();
     try {
-      const { id, name } = editData; // Destructure id and name from editData
+      const { id, name } = editData;
       const result = await updateCategory({
         categoryId: id,
         categoryData: { name },
-      }).unwrap(); // Pass both categoryId and categoryData
+      }).unwrap();
       console.log(result);
     } catch (error) {
       console.log(error);
