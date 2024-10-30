@@ -36,7 +36,7 @@ const Navigation = () => {
 
   const handleLogout = async (e) => {
     e.preventDefault();
-    console.log("logout");
+    console.log("logout called");
 
     try {
       const rest = await Logout().unwrap();
@@ -96,13 +96,20 @@ const Navigation = () => {
           <DropdownMenuContent>
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Profile</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link to="/Admin/Profile">Profile</Link>
+            </DropdownMenuItem>
             <DropdownMenuItem>
               <Link to="/Admin/Category">Category</Link>
             </DropdownMenuItem>
             <DropdownMenuItem>Billing</DropdownMenuItem>
             <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
+            <DropdownMenuItem onClick={(e) => handleLogout(e)}>
+              {/* <button onClick={() => console.log("button clicked")}>
+                Logout
+              </button> */}
+              Logout
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
