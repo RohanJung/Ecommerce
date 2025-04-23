@@ -84,8 +84,61 @@ const Navigation = () => {
           </Link>
         </div>
       </div>
-      <div></div>
+
+      {userInfo ? (
+        <DropdownMenu>
+          <DropdownMenuTrigger className="text-white">
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <Link to="/Admin/Profile">Profile</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link to="/Admin/Category">Category</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>Billing</DropdownMenuItem>
+            <DropdownMenuItem>Settings</DropdownMenuItem>
+            <DropdownMenuItem onClick={(e) => handleLogout(e)}>
+              {/* <button onClick={() => console.log("button clicked")}>
+                Logout
+              </button> */}
+              Logout
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ) : (
+        <div className=" flex flex-col gap-4">
+          <div>
+            <Link
+              to="/login"
+              className="text-white flex items-center flex-row gap-4"
+            >
+              <AiOutlineLogin />
+              <span className="hidden group-hover:inline">Login</span>
+            </Link>
+          </div>
+          <div>
+            <Link
+              to="/register"
+              className="text-white flex items-center flex-row gap-2"
+            >
+              <AiOutlineUserAdd />
+              <span className="hidden group-hover:inline">Register</span>
+            </Link>
+          </div>
+        </div>
+<<<<<<< HEAD
+      )}
+=======
+        <div></div>
       </div>
+>>>>>>> c7e6e70 (removing register)
     </div>
   );
 };
