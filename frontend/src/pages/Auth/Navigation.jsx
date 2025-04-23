@@ -84,17 +84,7 @@ const Navigation = () => {
           </Link>
         </div>
       </div>
-      <div>
-        <div>
-          <Link to="/" className="text-white">
-            Login
-          </Link>
-        </div>
-        <div>
-          <Link to="/" className="text-white">
-            Register
-          </Link>
-        </div>
+      <div></div>
       </div>
     </div>
   );
